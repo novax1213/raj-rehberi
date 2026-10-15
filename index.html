@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Raj Rehberi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column, a summary table first, then one entry per new feature; accent is indigo dye. */
+:root {
+  --paper: #f5f4f1;
+  --ink: #1d2733;
+  --muted: #586472;
+  --line: #cfd6de;
+  --horizon: #4b4f8c;
+  --horizon-soft: #e6e7f3;
+  --ok: #2f7a4f;
+  --ok-soft: #dcefe3;
+  --part: #9a6a12;
+  --part-soft: #f6ead2;
+  --no: #a33a32;
+  --no-soft: #f5dfdc;
+  --card: #ffffff;
+  --display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #15151c; --ink: #e3e9ef; --muted: #9aa7b5; --line: #2b3642;
+    --horizon: #a9adea; --horizon-soft: #23253c;
+    --ok: #7cc79b; --ok-soft: #173326; --part: #e0b45e; --part-soft: #352a14;
+    --no: #ee8c84; --no-soft: #3a1d1b; --card: #18212b; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #15151c; --ink: #e3e9ef; --muted: #9aa7b5; --line: #2b3642;
+  --horizon: #a9adea; --horizon-soft: #23253c;
+  --ok: #7cc79b; --ok-soft: #173326; --part: #e0b45e; --part-soft: #352a14;
+  --no: #ee8c84; --no-soft: #3a1d1b; --card: #18212b; color-scheme: dark;
+}
+body { background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55; }
+.wrap { max-width: 860px; margin: 0 auto; padding-inline: 18px; padding-block: 36px 64px; display: grid; gap: 40px; }
+header { display: grid; gap: 10px; border-bottom: 3px solid var(--horizon); padding-bottom: 20px; }
+.eyebrow { font-family: var(--display); font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--horizon); font-size: 15px; }
+h1 { font-family: var(--display); font-weight: 700; font-size: clamp(36px, 7vw, 56px); line-height: 1; margin: 0; text-wrap: balance; }
+h2 { font-family: var(--display); font-weight: 700; font-size: 28px; margin: 0; letter-spacing: .01em; text-wrap: balance; }
+h3 { font-family: var(--display); font-weight: 600; font-size: 24px; margin: 0; text-wrap: balance; }
+p { margin: 0; max-width: 66ch; }
+.lead { color: var(--muted); font-size: 17px; }
+.legend { display: flex; flex-wrap: wrap; gap: 10px 18px; font-size: 14px; color: var(--muted); }
+.chip { display: inline-block; font-family: var(--display); font-weight: 600; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; padding: 2px 9px; border-radius: 3px; white-space: nowrap; }
+.chip.ok { color: var(--ok); background: var(--ok-soft); }
+.chip.part { color: var(--part); background: var(--part-soft); }
+.chip.no { color: var(--no); background: var(--no-soft); }
+section { display: grid; gap: 16px; }
+.table-box { overflow-x: auto; border: 1px solid var(--line); background: var(--card); }
+table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 15px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+th { font-family: var(--display); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; font-size: 14px; color: var(--muted); }
+tr:last-child td { border-bottom: 0; }
+td a { color: var(--horizon); }
+.entries { display: grid; gap: 22px; }
+.entry { background: var(--card); border: 1px solid var(--line); padding: 18px 18px 20px; display: grid; gap: 12px; min-width: 0; }
+.entry-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 14px; }
+.fr { font-style: italic; color: var(--muted); font-size: 14px; }
+.effects { display: flex; flex-wrap: wrap; gap: 6px; }
+.fx { font-family: var(--mono); font-size: 13px; padding: 2px 7px; border: 1px solid var(--line); border-radius: 3px; font-variant-numeric: tabular-nums; }
+.label { font-family: var(--display); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; font-size: 13px; color: var(--horizon); }
+ol, ul { margin: 0; padding-left: 22px; display: grid; gap: 6px; max-width: 66ch; }
+.paths { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px; }
+.path { border-left: 3px solid var(--horizon); background: var(--horizon-soft); padding: 8px 10px; display: grid; gap: 2px; min-width: 0; }
+.path b { font-family: var(--display); font-weight: 600; font-size: 15px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.focus { font-weight: 600; }
+.note { border-left: 3px solid var(--line); padding-left: 12px; color: var(--muted); font-size: 15px; }
+footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); padding-top: 16px; display: grid; gap: 6px; }
+a:focus-visible { outline: 2px solid var(--horizon); outline-offset: 2px; }
+.search { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 2; background: var(--paper); padding-block: 12px; border-bottom: 1px solid var(--line); display: grid; gap: 6px; }
+.search label { font-family: var(--display); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; font-size: 14px; color: var(--horizon); }
+.search-row { display: flex; gap: 8px; min-width: 0; }
+.search input { flex: 1; min-width: 0; font: inherit; font-size: 17px; padding: 10px 12px; border: 2px solid var(--line); border-radius: 4px; background: var(--card); color: var(--ink); }
+.search input:focus-visible { outline: none; border-color: var(--horizon); }
+.search button { font-family: var(--display); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; font-size: 15px; padding: 0 14px; border: 2px solid var(--line); border-radius: 4px; background: var(--card); color: var(--muted); cursor: pointer; }
+.search button:hover { color: var(--ink); border-color: var(--horizon); }
+.search button:focus-visible { outline: 2px solid var(--horizon); outline-offset: 2px; }
+.count { font-size: 14px; color: var(--muted); min-height: 1.4em; }
+.empty { background: var(--card); border: 1px dashed var(--line); padding: 18px; color: var(--muted); }
+[hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">AGORA Sub mod [hegamon] · Britanya Hindistanı</div>
+    <h1>Raj Rehberi</h1>
+    <p class="lead">Alt modda Hindistan'a (Raj) eklenen yeni focuslar, kararlar ve harita değişiklikleri. Focus ve karar adları oyundaki İngilizce adlarıyla yazıldı. Focus süreleri parantez içinde.</p>
+    <div class="legend">
+      <span><span class="chip ok">Focus</span> focus ağacından alınır</span>
+      <span><span class="chip part">Karar</span> kararlar menüsünden alınır</span>
+      <span><span class="chip no">Harita</span> oyun başından beri böyle</span>
+    </div>
+  </header>
+
+  <div class="search" role="search">
+    <label for="q">Ara</label>
+    <div class="search-row">
+      <input id="q" type="search" placeholder="Örn. Körfez, Burma, araştırma, kaynak, komünist" autocomplete="off" spellcheck="false">
+      <button id="clear" type="button">Temizle</button>
+    </div>
+    <p id="count" class="count" aria-live="polite">Türkçe ya da oyundaki İngilizce adını yaz.</p>
+  </div>
+
+  <section aria-labelledby="ozet">
+    <h2 id="ozet">Özet</h2>
+    <div class="table-box">
+      <table>
+        <thead><tr><th>Yenilik</th><th>Ne yapar</th><th>Tür</th></tr></thead>
+        <tbody>
+          <tr><td><a href="#institute">An Indian Research Institute</a></td><td>+1 araştırma slotu</td><td><span class="chip ok">Focus</span></td></tr>
+          <tr><td><a href="#gulf">The Gulf Protectorates</a></td><td>Körfez kıyısı Raj'a geçer, Hint-Arap Dominyonu kurulur</td><td><span class="chip ok">Focus</span></td></tr>
+          <tr><td><a href="#churchill">Urge Churchill's Premiership</a></td><td>İngiltere'ye Churchill'i başbakan yapma teklifi</td><td><span class="chip ok">Focus</span></td></tr>
+          <tr><td><a href="#union">Invite the Neighbours to Union</a></td><td>Burma, Butan ve Nepal'e birlik teklifi</td><td><span class="chip ok">Focus</span></td></tr>
+          <tr><td><a href="#integration">Integration of the Raj</a></td><td>Burma, Butan ve Nepal topraklarına core</td><td><span class="chip part">Karar</span></td></tr>
+          <tr><td><a href="#suvarnabhumi">Suvarnabhumi</a></td><td>76 state'e core ve yeni bayrak</td><td><span class="chip ok">Focus</span></td></tr>
+          <tr><td><a href="#riches">Exploit the Riches of the Raj</a></td><td>180 gün boyunca ek kaynak</td><td><span class="chip part">Karar</span></td></tr>
+          <tr><td><a href="#communist">Komünist dal</a></td><td>3 yeni focus ve ulusal ruh</td><td><span class="chip ok">Focus</span></td></tr>
+          <tr><td><a href="#map">Harita ve isim</a></td><td>Madras üçe bölündü, Pondişeri core'u</td><td><span class="chip no">Harita</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="detay">
+    <h2 id="detay">Ayrıntılar</h2>
+    <p id="empty" class="empty" hidden>Bu adla bir şey bulunamadı. Başka bir kelime dene, örneğin "Körfez" ya da "core".</p>
+    <div class="entries">
+
+      <article class="entry" id="institute" data-keys="araştırma slotu research slot enstitü dominion of india dominyon">
+        <div class="entry-head"><h3>An Indian Research Institute</h3><span class="chip ok">Focus</span></div>
+        <p>The Dominion of India focusundan sonra gelir (60 gün). Raj İngiltere'nin kuklası olmalı.</p>
+        <div class="effects"><span class="fx">+1 araştırma slotu</span></div>
+      </article>
+
+      <article class="entry" id="gulf" data-keys="körfez körfez protektoraları gulf bahreyn katar umman uman trucial hint arap dominyonu indo arabian dominion iad arap dünyası core kukla">
+        <div class="entry-head"><h3>The Gulf Protectorates</h3><span class="chip ok">Focus</span></div>
+        <p>The Dominion of India focusundan sonra gelir (60 gün). Raj İngiltere'nin kuklası olmalı. Focus İngiltere'ye bir teklif gönderir.</p>
+        <div class="label">İngiltere kabul ederse</div>
+        <ul>
+          <li>Bahreyn, Katar ve Trucial Kıyısı Raj'a geçer.</li>
+          <li>Bu topraklarla <b>Hint-Arap Dominyonu</b> (Indo-Arabian Dominion) Raj'ın kuklası olarak kurulur. Umman da birliğe katılmaya davet edilir.</li>
+          <li>Hint-Arap Dominyonu bütün Arap dünyasına core alır: Arabistan'dan Mısır'a ve Fas'a kadar.</li>
+          <li>Raj bir ittifaktaysa dominyon da o ittifaka girer ve ittifaktan atılamaz.</li>
+        </ul>
+        <div class="label">Raj Dependency kukla türü</div>
+        <div class="effects"><span class="fx">Savaş ilan edemez</span><span class="fx">Askeri fabrikalarının %80'i Raj'a</span><span class="fx">Sivil fabrikalarının %31'i Raj'a</span><span class="fx">Ticareti Raj'a ucuz</span><span class="fx">İnsan gücü Raj'a gitmez</span></div>
+      </article>
+
+      <article class="entry" id="churchill" data-keys="churchill başbakan ingiltere edward kral krizi">
+        <div class="entry-head"><h3>Urge Churchill's Premiership</h3><span class="chip ok">Focus</span></div>
+        <p>The Dominion of India focusundan sonra gelir (60 gün). Sadece İngiltere'de Kral VIII. Edward tahtta kaldıysa alınabilir. İngiltere'ye Churchill'i başbakan yapma teklifi gider; kabul edip etmemek İngiltere'nin elindedir.</p>
+      </article>
+
+      <article class="entry" id="union" data-keys="komşu birlik burma butan nepal ilhak general amiral kongre müslüman birliği">
+        <div class="entry-head"><h3>Invite the Neighbours to Union</h3><span class="chip ok">Focus</span></div>
+        <p>Confer with the Congress ya da Favor the Muslim League focusundan sonra gelir (60 gün).</p>
+        <ul>
+          <li>Burma, Butan ve Nepal'e birlik teklifi gider. Kabul eden ülke askerleriyle birlikte Raj'a katılır.</li>
+          <li>Bu üç ülkenin bütün general, mareşal ve amiralleri Hint ordusuna geçer.</li>
+          <li><b>Integration of the Raj</b> kararları açılır.</li>
+        </ul>
+      </article>
+
+      <article class="entry" id="integration" data-keys="entegrasyon integration burma butan nepal core çekirdek">
+        <div class="entry-head"><h3>Integration of the Raj</h3><span class="chip part">Karar</span></div>
+        <p>Invite the Neighbours to Union'dan sonra açılan karar kategorisi. Üç karar var: <b>Integrate Burma</b>, <b>Integrate Bhutan</b>, <b>Integrate Nepal</b>.</p>
+        <ul>
+          <li>Her biri 30 gün sürer. Aynı anda sadece bir tanesi yapılabilir.</li>
+          <li>Süre bitince o ülkenin Raj'ın elindeki bütün toprakları Raj core'u olur.</li>
+        </ul>
+      </article>
+
+      <article class="entry" id="suvarnabhumi" data-keys="suvarnabhumi core çekirdek bayrak güneydoğu asya burma siam tayland çinhindi malaya sumatra seylan maldivler müslüman birliği">
+        <div class="entry-head"><h3>Suvarnabhumi</h3><span class="chip ok">Focus</span></div>
+        <p>Favor the Muslim League focusundan sonra gelir (90 gün).</p>
+        <ul>
+          <li>76 state'e core: bütün Hint alt kıtası, Burma, Siam, Fransız Çinhindi, Malaya, Sumatra, Seylan ve Maldivler.</li>
+          <li>Bayrak Suvarnabhumi bayrağı olur, ülkenin adı değişmez.</li>
+        </ul>
+        <div class="effects"><span class="fx">Savaş desteği +%5</span><span class="fx">76 state'e core</span></div>
+      </article>
+
+      <article class="entry" id="riches" data-keys="kaynak zenginlik riches petrol çelik tungsten krom alüminyum kauçuk kömür">
+        <div class="entry-head"><h3>Exploit the Riches of the Raj</h3><span class="chip part">Karar</span></div>
+        <p>The Riches of the Raj focusundan sonra Riches of the Raj kategorisinde açılır. 30 PP, 30 günde bir tekrar alınabilir.</p>
+        <ul>
+          <li>Oyun başında sahip olduğun ve tamamen kontrol ettiğin kaynak zengini her state'e 180 gün boyunca ek kaynak verir: petrolü olan her state'e +2 petrol, 20'den fazla çelik, tungsten, krom, alüminyum, kauçuk ya da kömürü olan state'e o kaynaktan +2.</li>
+          <li>Burma kuklan ya da müttefikinse Burma'nın kaynakları da sayılır.</li>
+          <li>180 gün dolunca eklenen kaynaklar geri gider.</li>
+        </ul>
+      </article>
+
+      <article class="entry" id="communist" data-keys="komünist komünizm telangana tebhaga bombay kızıl bayrak reds in the shadows ulusal ruh">
+        <div class="entry-head"><h3>Komünist dal</h3><span class="chip ok">Focus</span></div>
+        <p>Reds In The Shadows focusundan sonra sırayla gelen 3 focus (her biri 42 gün).</p>
+        <div class="paths">
+          <div class="path"><b>The Telangana Rebellion</b><span>Komünizm +%8, savaş desteği +%5, ordu tecrübesi +25</span><span class="focus">Telangana Village Militias</span><span>Askere alma +%1,5, ordu organizasyonu +%3, takviye +%5</span></div>
+          <div class="path"><b>The Tebhaga Movement</b><span>Komünizm +%8, istikrar +%5, +75 PP</span><span class="focus">Tebhaga</span><span>İstikrar +%5, günlük PP +0,15, tüketim malları −%3</span></div>
+          <div class="path"><b>Red Flag Over Bombay</b><span>Komünizm +%10, donanma tecrübesi +25, donanma isyanı eşiği düşer</span><span class="focus">The Bombay Dockers</span><span>Donanma tecrübesi +%10, donanma organizasyonu +%5, tersane çıktısı +%5</span></div>
+        </div>
+        <p class="note">Üç ulusal ruhun hepsi ayrıca komünizm kaymasını artırır.</p>
+      </article>
+
+      <article class="entry" id="map" data-keys="harita madras madurai pondişeri pondicherry fransız hindistanı state dominion of india isim bayrak">
+        <div class="entry-head"><h3>Harita ve isim</h3><span class="chip no">Harita</span></div>
+        <ul>
+          <li>Madras üç state'e bölündü: <b>Madurai</b>, <b>Madras Presidency</b> ve <b>Madras</b> şehri.</li>
+          <li>Fransız Hindistanı (Pondişeri) Fransa'nın elinde ama Raj'ın core'u.</li>
+          <li>The Dominion of India focusundan sonra Hindistan'ın adı ve bayrağı değişmez. İngiltere'nin dominyonuyken adı "Dominion of India" olarak görünür.</li>
+        </ul>
+      </article>
+
+    </div>
+  </section>
+
+  <footer>
+    <p>Bu bilgiler alt modun dosyalarından çıkarıldı. Değerler olaylarla biraz değişebilir.</p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var q = document.getElementById('q');
+  var clear = document.getElementById('clear');
+  var count = document.getElementById('count');
+  var empty = document.getElementById('empty');
+  var entries = Array.prototype.slice.call(document.querySelectorAll('.entry'));
+  var rows = Array.prototype.slice.call(document.querySelectorAll('tbody tr'));
+  var summary = document.getElementById('ozet').parentNode;
+  var hint = count.textContent;
+  function norm(s) {
+    return s.toLocaleLowerCase('tr').replace(/ı/g, 'i').replace(/ş/g, 's').replace(/ğ/g, 'g').replace(/ü/g, 'u').replace(/ö/g, 'o').replace(/ç/g, 'c').replace(/â/g, 'a').replace(/î/g, 'i').replace(/û/g, 'u');
+  }
+  var index = entries.map(function (el) {
+    return { el: el, id: el.id, text: norm(el.textContent + ' ' + (el.getAttribute('data-keys') || '')) };
+  });
+  function run() {
+    var words = norm(q.value).split(/\s+/).filter(Boolean);
+    var shown = 0;
+    var ids = {};
+    index.forEach(function (it) {
+      var ok = words.every(function (w) { return it.text.indexOf(w) !== -1; });
+      it.el.hidden = !ok;
+      if (ok) { shown++; ids[it.id] = true; }
+    });
+    rows.forEach(function (r) {
+      var a = r.querySelector('a');
+      var id = a ? a.getAttribute('href').slice(1) : '';
+      r.hidden = words.length > 0 && !ids[id];
+    });
+    summary.hidden = words.length > 0 && shown === 0;
+    empty.hidden = !(words.length > 0 && shown === 0);
+    count.textContent = words.length === 0 ? hint : (shown === 0 ? 'Sonuç yok.' : shown + ' debuff bulundu.');
+  }
+  q.addEventListener('input', run);
+  clear.addEventListener('click', function () { q.value = ''; run(); q.focus(); });
+  run();
+})();
+</script>
+</body>
+</html>
